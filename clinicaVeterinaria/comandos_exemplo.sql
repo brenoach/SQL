@@ -528,9 +528,20 @@ WHERE idEquipamento = '3'
  INSERT INTO aluguelequipamento 
  (idAluguel, idEquipamento, valorUnitario, ValorItem, quantidade)
  VALUES 
- ('6','4',79.65, 79.65,3)
- ('7','4',79.65, 79.65,3)
- ('8','4',79.65, 79.65,3)
+ ('9','2',20.00, 40.00,2),
+ ('9','1',20.00, 20.00,1),
+ ('10','2',20.00, 40.00,2),
+ ('10','1',20.00, 20.00,1),
+ ('11','2',20.00, 40.00,2),
+ ('11','1',20.00, 20.00,1),
+ ('12','2',20.00, 40.00,2),
+ ('12','1',20.00, 20.00,1),
+ ('13','2',20.00, 40.00,2),
+ ('13','1',20.00, 20.00,1),
+ ('14','2',20.00, 40.00,2),
+ ('14','1',20.00, 20.00,1)
+ 
+ 
  
 SELECT * FROM cliente
 SELECT * FROM equipamento
@@ -542,13 +553,61 @@ DELETE FROM aluguel
 WHERE idAluguel = 8;
 
 10)Listar o nome e os contatos de todos os clientes da barraca em ordem alfabética. 
+
+SELECT nomecliente, email FROM cliente
+ORDER BY nomeCliente
+
 11)Listar o nome e o contato telefônico de todos os funcionários da barraca em ordem alfabética. 
+
+SELECT nomefuncionario, celular FROM funcionario
+ORDER BY nomefuncionario
+
 12)Listar todos os dados dos aluguéis realizados em ordem de data da mais antiga para a mais nova.
+
+SELECT * FROM aluguel 
+ORDER BY dataHoraRetirada DESC
+
+
 13)Listar nome, cidade e estado de todos os clientes da baixada santista em ordem alfabética por nome.
+
+SELECT nomecliente, cidade, estado FROM cliente
+WHERE cidade IN('santos', 'são vicente', 'Praia Grande', 'Itanhaem', 'guarujá')
+ORDER BY nomeCliente
+
 14)Listar todos os produtos e a quantidade de estoque do produto que tem mais itens para o que tem menos.
+
+SELECT nomeEquipamento, qtd FROM equipamento
+ORDER BY qtd desc
+
 15)Listar o nome, a cidade e o estado de todos os clientes que moram em casa em ordem alfabética.
+
+SELECT nomecliente, cidade, estado FROM cliente
+WHERE complemento LIKE '%casa%'
+ORDER BY nomeCliente
+
 16)Listar o nome de todos os clientes e o estado daqueles que não vivem no estado de SP.
+
+SELECT nomecliente, cidade, estado FROM cliente
+WHERE estado <> 'sp'
+ORDER BY nomeCliente
+
 17)Listar o nome de todos os clientes que começam com a letra A.
+
+SELECT nomecliente  FROM cliente
+WHERE nomeCliente LIKE 'a%'
+
 18)Listar todos os dados dos clientes que começam com a letra M e vivam no estado de PE.
-19)Listar apenas as cadeiras e a quantidade que possui em estoque em ordem de quantidade, da que mais possui itens para a que menos possui. 
+
+SELECT nomeCliente FROM cliente
+WHERE nomeCliente LIKE 'm%' AND estado ='PE'
+
+19)Listar apenas as cadeiras e a quantidade que possui em estoque em ordem de quantidade, da que mais possui itens para a que menos possui.
+
+SELECT nomeEquipamento, qtd FROM equipamento 
+WHERE nomeEquipamento LIKE 'Cadeira%'
+ORDER BY qtd DESC
+ 
 20)Listar todos os dados dos alugueis que ocorreram entre 25/12 e 31/12 de 2024 em ordem de data da mais antiga para a mais nova. 
+
+SELECT * FROM aluguel 
+WHERE datahoraretirada BETWEEN '2024-12-25' AND '2024-12-31'
