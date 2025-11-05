@@ -316,7 +316,24 @@ ON veterinario.idVeterinario = consulta.idveterinario
 
 SELECT nomeVeterinario,crmv, datahora, valorTotal 
 FROM consulta LEFT JOIN veterinario
-ON veterinario.idVeterinario = consulta.idveterinario
+ON consulta.idveterinario = veterinario.idVeterinario
+WHERE nomeVeterinario LIKE 'P%'
 ORDER BY nomeVeterinario, datahora Asc
 
-SELECT nomeveterinario, 
+
+
+SELECT nomeCLiente, nomeAnimal, celular, email
+FROM cliente inner JOIN animal
+ON cliente.idcliente = animal.idCliente
+WHERE estado like 'SP' 
+ORDER BY nomeanimal
+
+SELECT nomeAnimal,nomeCliente,celular,email
+FROM animal LEFT JOIN cliente
+ON animal.idCliente = cliente.idCliente
+WHERE estado LIKE 'SP'
+ORDER BY nomeAnimal ASC
+
+SELECT nomeCliente, cidade, estado FROM cliente
+WHERE email LIKE '%@email.%' AND estado IN ('RJ', 'GO')
+ORDER BY nomeCliente
