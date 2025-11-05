@@ -187,10 +187,11 @@ DESC /*(ou contrario da ordem alfabética */
 
 SELECT *FROM cliente
 SELECT *FROM animal
-SELECT *FROM consulta
-SELECT *FROM consultatiposervicoconsulta
-SELECT *FROM tiposervico
 SELECT *FROM veterinario
+SELECT *FROM consulta
+SELECT *FROM tiposervico
+SELECT *FROM consultatiposervicoconsulta
+
 
 INSERT INTO cliente (nomeCliente,cpf,celular, email, cidade, estado, 
 cep, tipologradouro,nomelogradouro, numero, complemento) 
@@ -251,6 +252,71 @@ VALUES
 ('Gabriel Martins', 991098765, 13287688888, 'Cardiologista Veterinário'),
 ('Patrícia Lima', 990987654, 12234599999, 'Nutricionista Animal');
 
+DESCRIBE consulta
+
 INSERT INTO consulta (idAnimal, idVeterinario, dataHora, pago, formaPagto, qtdVezes, valorTotal, valorPago)
 VALUES
-( 1, 1, "2025-11-03 12:23:45", 1, à vista, 1, )
+( 7, 1, "2025-11-03 12:23:45", 1, 'à vista', 1, 30.78, 38.78)
+( 8, 1, "2025-11-03 15:23:45", 1, 'à vista', 1, 30.78, 38.78),
+( 9, 1, "2025-11-03 17:23:45", 1, 'à vista', 1, 30.78, 38.78),
+( 10, 1, "2025-11-03 19:23:45", 1, 'à vista', 1, 30.78, 38.78),
+( 6, 1, "2025-11-03 23:23:45", 1, 'à vista', 1, 30.78, 38.78)
+
+
+INSERT into consultatiposervicoconsulta (idConsulta,idTipoServico,valorServico)
+VALUES 
+(1, 1, 150.00),
+(2, 3, 100.00),
+(3, 4, 300.00),
+(4, 6, 80.00),
+(5, 3, 100.00),
+(6, 1, 150.00)
+
+-- Inserir 2 consultas com 1 procedimento cada para um mesmo animal da clínica, mas em dias diferentes; 
+
+
+INSERT INTO consulta (idAnimal, idVeterinario, dataHora, pago, formaPagto, qtdVezes, valorTotal, valorPago)
+VALUES
+( 6, 1, "2025-11-03 12:23:45", 1, 'pix', 1, 30.78, 38.78),
+( 6, 1, "2025-12-03 15:23:45", 1, 'pix', 1, 30.78, 38.78);
+
+INSERT into consultatiposervicoconsulta (idConsulta,idTipoServico,valorServico)
+VALUES 
+(7, 1, 150.00),
+(8, 1, 150.00);
+
+-- Inserir 1 cosulta com 2 procedimentos para um mesmo animal da clínica. 
+
+INSERT INTO consulta (idAnimal, idVeterinario, dataHora, pago, formaPagto, qtdVezes, valorTotal, valorPago)
+VALUES
+( 7, 1, "2025-11-25 12:23:45", 1, 'pix', 1, 30.78, 38.78);
+
+INSERT into consultatiposervicoconsulta (idConsulta,idTipoServico,valorServico)
+VALUES 
+(9, 1, 150.00),
+(9, 2, 250.00);
+
+-- veterinário (nome,crmv,datahora) que tinham consultas
+ 
+SELECT nomeVeterinario,crmv,datahora FROM veterinario
+INNER JOIN consulta 
+ON veterinario.idVeterinario = consulta.idVeterinario
+
+-- consulta de nomeCLiente e nomeAnimal  
+
+SELECT nomecliente, nomeAnimal FROM cliente, 
+INNER JOIN animal 
+ON cliente.idcliente = animal.idcliente
+
+
+SELECT nomeVeterinario,crmv, datahora, valorTotal 
+FROM veterinario LEFT JOIN consulta
+ON veterinario.idVeterinario = consulta.idveterinario
+
+
+SELECT nomeVeterinario,crmv, datahora, valorTotal 
+FROM consulta LEFT JOIN veterinario
+ON veterinario.idVeterinario = consulta.idveterinario
+ORDER BY nomeVeterinario, datahora Asc
+
+SELECT nomeveterinario, 
